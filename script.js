@@ -7,11 +7,11 @@ const choices = ["Rock", "Paper", "Scissors"];
 let playerScore = 0;
 let computerScore = 0;
 
-let result = ["win", "lose", "tie"]
+let result = ["win", "lose", "tie"];
 
 // Function which randomly returns Rock, Paper or Scissors
 function getComputerChoice() {
-    return choices[Math.floor(Math.random() * Math.floor(choices.length))]
+    return choices[Math.floor(Math.random() * choices.length)];
 }
   
 // Function which plays a round and returns win or lose
@@ -43,8 +43,7 @@ function playRound(playerSelection, computerSelection) {
 
 // Game loop
 function game() {
-    while (playerScore < 3 && computerScore < 3) { // Loops until who between the user and the computer reaches first a score of 3
-
+    while (playerScore < 3 && computerScore < 3) { // Loops until who reaches first a score of 3 between the user and the computer
         function trackScore() { // Tracks the score of the user and the computer for each round
             if (result === "win") {
                 playerScore++
@@ -58,7 +57,8 @@ function game() {
         }
 
         let playerSelection = prompt("Make your pick (rock, paper or scissors): ", '');
-            playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase(); // The user inputs one of the three choices, which is case-insensitive, and always returns it with the first letter capitalized and the remaining lowercase
+           playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase(); // The user inputs one of the three choices, which is case-insensitive, and always returns it with the first letter capitalized and the remaining lowercase
+
         const computerSelection = getComputerChoice();
         console.log("You chose: " + playerSelection);
         console.log("The computer has chosen: " + computerSelection);
