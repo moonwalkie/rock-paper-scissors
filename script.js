@@ -68,7 +68,7 @@ function game() {
     }
 }
 
-function winner() {
+function showFinalResult() {
     if (playerScore === 3 && playerScore > computerScore) {
         return "You Won! Congrats";
     } else {
@@ -77,4 +77,4 @@ function winner() {
 }
 
 game(); // Plays the loop
-console.log(winner()); // Declares the user as winner or loser at the end of the game
+console.log(showFinalResult()); // Declares the user as winner or loser at the end of the game
