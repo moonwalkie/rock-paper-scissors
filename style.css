@@ -14,13 +14,6 @@ body {
     background-repeat: no-repeat;
 }
 
-p {
-    color: white;
-    font-weight: 900;
-    font-size: 5rem;
-    -webkit-text-stroke: .3rem black;
-}
-
 .black-bar {
     height: 3rem;
     background-color: black;
@@ -57,12 +50,12 @@ p {
     width: 20rem;
 }
 
-#rock-flipped {
-    margin-left: 10rem;
+.hands.left {
+    margin-left: 5rem;
 }
 
-#rock {
-    margin-right: 10rem;
+.hands.right {
+    margin-right: 5rem;
 }
 
 #versus {
@@ -73,7 +66,7 @@ p {
     display: flex;
     justify-content: center;
     gap: 5rem;
-    margin-top: 3rem;
+    margin-top: 5rem;
 }
 
 .rock-text,
