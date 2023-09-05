@@ -75,6 +75,39 @@ function showFinalResult() {
         return "You Lost! Refresh the page to try again";
     }
 }
-
+/*
 game(); // Plays the loop
 console.log(showFinalResult()); // Declares the user as winner or loser at the end of the game
+*/
+
+// let handsAnimation = document.querySelector('.hands.left');
+let handsLeft = document.querySelector('.hands.left');
+
+let handsRight = document.querySelector('.hands.right');
+
+
+let handsLeftAnim = bodymovin.loadAnimation({
+
+    container: handsLeft,
+    path: './assets/paper-flipped.json',
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+});
+
+let handsRightAnim = bodymovin.loadAnimation({
+
+    container: handsRight,
+    path: './assets/rock.json',
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+});
+
+handsLeft.addEventListener('click', function() {
+    handsLeftAnim.playSegments([0, 90], true);
+});
+
+handsRight.addEventListener('click', function() {
+    handsRightAnim.playSegments([0, 90], true);
+});
