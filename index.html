@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Play Rock, Paper, Scissors!</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
 </head>
 <body>
-    <script src="script.js"></script>
+    <div class="black-bar"></div>
+    <div class="content">
+        <div class="logo">
+            <img src="./assets/rock-paper-scissors-logo.svg" alt="Rock, Paper, Scissors Logo" width="350rem">
+        </div>
+        <div class="container">
+            <div class="hands left">
+                <div id="rock-flipped"></div>
+            </div>
+            <div class="container">
+                <p class="score left">0</p>
+                <div id="versus">
+                    <img src="./assets/vs.svg" alt="Versus Graphic with orange and yellow colors" width="90rem">
+                </div>
+                <p class="score right">0</p>
+            </div>
+            <div class="hands right">
+                <div id="rock"></div>
+            </div>
+        </div>
+    </div>
+    <div class="black-bar bottom"></div>
 </body>
 </html>
