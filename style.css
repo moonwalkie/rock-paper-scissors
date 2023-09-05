@@ -46,15 +46,15 @@ body {
     margin-right: 1rem;
 }
 
-.hands {
+.hand {
     width: 20rem;
 }
 
-.hands.left {
+.hand.left {
     margin-left: 5rem;
 }
 
-.hands.right {
+.hand.right {
     margin-right: 5rem;
 }
 
@@ -86,4 +86,12 @@ body {
 
 .scissors-text:hover {
     transform: scale(1.1);
+}
+
+.hide {
+    display: none;
+}
+
+.pointer {
+    pointer-events: none;
 }
