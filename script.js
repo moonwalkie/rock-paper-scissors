@@ -11,10 +11,10 @@ paperSelection = document.querySelector('.paper-text');
 scissorsSelection = document.querySelector('.scissors-text');
 
 // Computer Selection
-let choice = ["rock", "paper", "scissors"];
-rock = document.getElementById('rock-right');
-paper = document.getElementById('paper-right');
-scissors = document.getElementById('scissors-right');
+let choice = ["rockRight", "paperRight", "scissorsRight"];
+rockRight = document.getElementById('rock-right');
+paperRight = document.getElementById('paper-right');
+scissorsRight = document.getElementById('scissors-right');
 
 // Function which randomly returns Rock, Paper or Scissors
 function getComputerChoice() {
@@ -59,7 +59,7 @@ let scissorsLeftAnim = bodymovin.loadAnimation({
 // Right hand
 let rockRightAnim = bodymovin.loadAnimation({
 
-    container: rock,
+    container: rockRight,
     path: './assets/rock.json',
     renderer: 'svg',
     loop: false,
@@ -68,7 +68,7 @@ let rockRightAnim = bodymovin.loadAnimation({
 
 let paperRightAnim = bodymovin.loadAnimation({
 
-    container: paper,
+    container: paperRight,
     path: './assets/paper.json',
     renderer: 'svg',
     loop: false,
@@ -77,7 +77,7 @@ let paperRightAnim = bodymovin.loadAnimation({
 
 let scissorsRightAnim = bodymovin.loadAnimation({
 
-    container: scissors,
+    container: scissorsRight,
     path: './assets/scissors.json',
     renderer: 'svg',
     loop: false,
@@ -98,6 +98,7 @@ rockSelection.addEventListener('click', () => {
     pick.classList.add('pointer'); // Removes pointer events while animation is playing
     rockLeftAnim.playSegments([0, 90], true);
     playRound();
+    rightAnim();
 });
 
 rockLeftAnim.addEventListener('complete', () => {
@@ -112,6 +113,7 @@ paperSelection.addEventListener('click', () => {
     pick.classList.add('pointer');
     paperLeftAnim.playSegments([0, 90], true);
     playRound();
+    rightAnim();
 });
 
 paperLeftAnim.addEventListener('complete', () => {
@@ -126,11 +128,35 @@ scissorsSelection.addEventListener('click', () => {
     pick.classList.add('pointer');
     scissorsLeftAnim.playSegments([0, 90], true);
     playRound();
+    rightAnim();
 });
 
 scissorsLeftAnim.addEventListener('complete', () => {
     pick.classList.remove('pointer');
 });
+
+// Function which plays an animation on the right hand depending on the specific choice, which is random
+function rightAnim() {
+    if (computerSelection === getComputerChoice(choice[0])) {
+        rockRightAnim.playSegments([0, 90], true);
+        rockRight.classList.remove('hide');
+        paperRight.classList.add('hide');
+        scissorsRight.classList.add('hide');
+
+    } else if (computerSelection === getComputerChoice(choice[1])) {
+        paperRightAnim.playSegments([0, 90], true);
+        paperRight.classList.remove('hide');
+        rockRight.classList.add('hide');
+        scissorsRight.classList.add('hide');
+
+    } else {
+        scissorsRightAnim.playSegments([0, 90], true);
+        scissorsRight.classList.remove('hide');
+        rockRight.classList.add('hide');
+        paperRight.classList.add('hide');
+
+    }
+}
 
 // Score
 let playerScore = 0;
@@ -143,25 +169,25 @@ function playRound() {
 
     if ((rockClicked === true) && (computerSelection === getComputerChoice(choice[2]))) {
         result = "win";
-        console.log("win");
+
     } else if ((scissorsClicked === true) && (computerSelection === getComputerChoice(choice[1]))) {
         result = "win";
-        console.log("win");
+
     } else if ((paperClicked === true) && (computerSelection === getComputerChoice(choice[0]))) {
         result = "win";
-        console.log("win");
+
     } else if ((scissorsClicked === true) && (computerSelection === getComputerChoice(choice[0]))) {
         result = "lose";
-        console.log("lose");
+ 
     } else if ((paperClicked === true) && (computerSelection === getComputerChoice(choice[2]))) {
         result = "lose";
-        console.log("lose");
+ 
     } else if ((rockClicked === true) && (computerSelection === getComputerChoice(choice[1]))) {
         result = "lose";
-        console.log("lose");
+  
     } else {
         result = "tie"; // The only combinations left are draws
-        console.log("tie");
+        
     }
 }
 
