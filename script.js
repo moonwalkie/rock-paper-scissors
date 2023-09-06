@@ -1,16 +1,27 @@
 // Game rules: rock beats scissors, scissors beat paper, and paper beats rock.
-// The game plays until whoever reaches a score of 3 first, which then is declared the winner
+// The game plays until whoever reaches a score of 5 first, which then is declared the winner
 
-let choice = ["rock", "paper", "scissors"];
-choice[0] = document.getElementById('rock-right');
-choice[1] = document.getElementById('paper-right');
-choice[2] = document.getElementById('scissors-right');
 
+// Player Selection
 let pick = document.querySelector('.pick');
 
-let rockSelection = document.querySelector('.rock-text');
-let paperSelection = document.querySelector('.paper-text');
-let scissorsSelection = document.querySelector('.scissors-text');
+let playerSelection = ["rockSelection", "paperSelection", "scissorsSelection"];
+rockSelection = document.querySelector('.rock-text');
+paperSelection = document.querySelector('.paper-text');
+scissorsSelection = document.querySelector('.scissors-text');
+
+// Computer Selection
+let choice = ["rock", "paper", "scissors"];
+rock = document.getElementById('rock-right');
+paper = document.getElementById('paper-right');
+scissors = document.getElementById('scissors-right');
+
+// Function which randomly returns Rock, Paper or Scissors
+function getComputerChoice() {
+    return choice[Math.floor(Math.random() * choice.length)];
+}
+
+const computerSelection = getComputerChoice();
 
 // Animation
 let rockLeft = document.getElementById('rock-left');
@@ -18,7 +29,6 @@ let paperLeft = document.getElementById('paper-left');
 let scissorsLeft = document.getElementById('scissors-left');
 
 // Left hand
-
 let rockLeftAnim = bodymovin.loadAnimation({
 
     container: rockLeft,
@@ -47,10 +57,9 @@ let scissorsLeftAnim = bodymovin.loadAnimation({
 });
 
 // Right hand
-
 let rockRightAnim = bodymovin.loadAnimation({
 
-    container: choice[0],
+    container: rock,
     path: './assets/rock.json',
     renderer: 'svg',
     loop: false,
@@ -59,7 +68,7 @@ let rockRightAnim = bodymovin.loadAnimation({
 
 let paperRightAnim = bodymovin.loadAnimation({
 
-    container: choice[1],
+    container: paper,
     path: './assets/paper.json',
     renderer: 'svg',
     loop: false,
@@ -68,45 +77,55 @@ let paperRightAnim = bodymovin.loadAnimation({
 
 let scissorsRightAnim = bodymovin.loadAnimation({
 
-    container: choice[2],
+    container: scissors,
     path: './assets/scissors.json',
     renderer: 'svg',
     loop: false,
     autoplay: false,
 });
 
-// Event Listener
+// Declaring variables that change value in Event Listeners so that it can be called in function playRound()
+let rockClicked = false;
+let paperClicked = false;
+let scissorsClicked = false;
 
+// Event Listener
 rockSelection.addEventListener('click', () => {
+    rockClicked = true;
     rockLeft.classList.remove('hide');
     paperLeft.classList.add('hide');
     scissorsLeft.classList.add('hide');
-    pick.classList.add('pointer');
+    pick.classList.add('pointer'); // Removes pointer events while animation is playing
     rockLeftAnim.playSegments([0, 90], true);
+    playRound();
 });
 
 rockLeftAnim.addEventListener('complete', () => {
-    pick.classList.remove('pointer');
+    pick.classList.remove('pointer'); // Add back pointer events after animation is complete
 });
-
+/////////////////////////////////////////////////////
 paperSelection.addEventListener('click', () => {
+    paperClicked = true;
     paperLeft.classList.remove('hide');
     rockLeft.classList.add('hide');
     scissorsLeft.classList.add('hide');
     pick.classList.add('pointer');
     paperLeftAnim.playSegments([0, 90], true);
+    playRound();
 });
 
 paperLeftAnim.addEventListener('complete', () => {
     pick.classList.remove('pointer');
 });
-
+/////////////////////////////////////////////////////
 scissorsSelection.addEventListener('click', () => {
+    scissorsClicked = true;
     scissorsLeft.classList.remove('hide');
     rockLeft.classList.add('hide');
     paperLeft.classList.add('hide');
     pick.classList.add('pointer');
     scissorsLeftAnim.playSegments([0, 90], true);
+    playRound();
 });
 
 scissorsLeftAnim.addEventListener('complete', () => {
@@ -119,35 +138,30 @@ let computerScore = 0;
 
 let result = ["win", "lose", "tie"];
 
-// Function which randomly returns Rock, Paper or Scissors
-function getComputerChoice() {
-    return choice[Math.floor(Math.random() * choice.length)];
-}
-  
-// Function which plays a round and returns win or lose
-function playRound(playerSelection, computerSelection) {
-    // Gets the index number of the array elements and returns a message based on specific combinations between the user and the computer's move
-    if ((playerSelection === rockSelection) && (computerSelection === choice[2])) {
+// Function which plays a round and returns win, lose or tie based on specific combinations
+function playRound() {
+
+    if ((rockClicked === true) && (computerSelection === getComputerChoice(choice[2]))) {
         result = "win";
-        return "You Win! Rock beats Scissors";
-    } else if ((playerSelection === scissorsSelection) && (computerSelection === choice[1])) {
+        console.log("win");
+    } else if ((scissorsClicked === true) && (computerSelection === getComputerChoice(choice[1]))) {
         result = "win";
-        return "You Win! Scissors beat Paper"; 
-    } else if ((playerSelection === paperSelection) && (computerSelection === choice[0])) {
+        console.log("win");
+    } else if ((paperClicked === true) && (computerSelection === getComputerChoice(choice[0]))) {
         result = "win";
-        return "You Win! Paper beats Rock";
-    } else if ((playerSelection === scissorsSelection) && (computerSelection === choice[0])) {
+        console.log("win");
+    } else if ((scissorsClicked === true) && (computerSelection === getComputerChoice(choice[0]))) {
         result = "lose";
-        return "You Lose! Rock beats Scissors";
-    } else if ((playerSelection === paperSelection) && (computerSelection === choice[2])) {
+        console.log("lose");
+    } else if ((paperClicked === true) && (computerSelection === getComputerChoice(choice[2]))) {
         result = "lose";
-        return "You Lose! Scissors beat Paper";
-    } else if ((playerSelection == rockSelection) && (computerSelection === choice[1])) {
+        console.log("lose");
+    } else if ((rockClicked === true) && (computerSelection === getComputerChoice(choice[1]))) {
         result = "lose";
-        return "You Lose! Paper beats Rock";
+        console.log("lose");
     } else {
-        result = "tie";
-        return "Tie! Play another round"; // The only combinations left are draws
+        result = "tie"; // The only combinations left are draws
+        console.log("tie");
     }
 }
 
@@ -166,9 +180,7 @@ function game() {
             }
         }
 
-        let playerSelection = document.querySelector('.pick');
 
-        const computerSelection = getComputerChoice();
         console.log("You chose: " + playerSelection);
         console.log("The computer has chosen: " + computerSelection);
 
@@ -184,7 +196,5 @@ function showFinalResult() {
         return "You Lost! Refresh the page to try again";
     }
 }
-/*
-game(); // Plays the loop
-console.log(showFinalResult()); // Declares the user as winner or loser at the end of the game
-*/
+
+// game(); // Plays the loop
