@@ -1,3 +1,4 @@
+'use strict';
 // Game rules: rock beats scissors, scissors beat paper, and paper beats rock.
 // The game plays until whoever reaches a score of 5 first, which then is declared the winner
 
@@ -5,23 +6,16 @@
 // Player Selection
 let pick = document.querySelector('.pick');
 
-let playerSelection = ["rockSelection", "paperSelection", "scissorsSelection"];
-rockSelection = document.querySelector('.rock-text');
-paperSelection = document.querySelector('.paper-text');
-scissorsSelection = document.querySelector('.scissors-text');
+let playerSelection = ['rockSelection', 'paperSelection', 'scissorsSelection'];
+playerSelection[0] = document.querySelector('.rock-text');
+playerSelection[1] = document.querySelector('.paper-text');
+playerSelection[2] = document.querySelector('.scissors-text');
 
 // Computer Selection
-let choice = ["rockRight", "paperRight", "scissorsRight"];
-rockRight = document.getElementById('rock-right');
-paperRight = document.getElementById('paper-right');
-scissorsRight = document.getElementById('scissors-right');
-
-// Function which randomly returns Rock, Paper or Scissors
-function getComputerChoice() {
-    return choice[Math.floor(Math.random() * choice.length)];
-}
-
-const computerSelection = getComputerChoice();
+let choice = ['rockRight', 'paperRight', 'scissorsRight'];
+choice[0] = document.getElementById('rock-right');
+choice[1] = document.getElementById('paper-right');
+choice[2] = document.getElementById('scissors-right');
 
 // Animation
 let rockLeft = document.getElementById('rock-left');
@@ -59,7 +53,7 @@ let scissorsLeftAnim = bodymovin.loadAnimation({
 // Right hand
 let rockRightAnim = bodymovin.loadAnimation({
 
-    container: rockRight,
+    container: choice[0],
     path: './assets/rock.json',
     renderer: 'svg',
     loop: false,
@@ -68,7 +62,7 @@ let rockRightAnim = bodymovin.loadAnimation({
 
 let paperRightAnim = bodymovin.loadAnimation({
 
-    container: paperRight,
+    container: choice[1],
     path: './assets/paper.json',
     renderer: 'svg',
     loop: false,
@@ -77,7 +71,7 @@ let paperRightAnim = bodymovin.loadAnimation({
 
 let scissorsRightAnim = bodymovin.loadAnimation({
 
-    container: scissorsRight,
+    container: choice[2],
     path: './assets/scissors.json',
     renderer: 'svg',
     loop: false,
@@ -89,138 +83,173 @@ let rockClicked = false;
 let paperClicked = false;
 let scissorsClicked = false;
 
-// Event Listener
-rockSelection.addEventListener('click', () => {
+// Event Listener for rock
+playerSelection[0].addEventListener('click', () => {
     rockClicked = true;
     rockLeft.classList.remove('hide');
     paperLeft.classList.add('hide');
     scissorsLeft.classList.add('hide');
     pick.classList.add('pointer'); // Removes pointer events while animation is playing
     rockLeftAnim.playSegments([0, 90], true);
-    playRound();
-    rightAnim();
+    const computerChoice = getComputerChoice();
+    console.log(computerChoice);
+    playRound(computerChoice);
+    rightAnim(computerChoice); // Pass the same computerChoice here
 });
+
 
 rockLeftAnim.addEventListener('complete', () => {
     pick.classList.remove('pointer'); // Add back pointer events after animation is complete
 });
-/////////////////////////////////////////////////////
-paperSelection.addEventListener('click', () => {
+
+// Event Listener for paper
+playerSelection[1].addEventListener('click', () => {
     paperClicked = true;
     paperLeft.classList.remove('hide');
     rockLeft.classList.add('hide');
     scissorsLeft.classList.add('hide');
     pick.classList.add('pointer');
     paperLeftAnim.playSegments([0, 90], true);
-    playRound();
-    rightAnim();
+    const computerChoice = getComputerChoice();
+    console.log(computerChoice);
+    playRound(computerChoice);
+    rightAnim(computerChoice); // Pass the same computerChoice here
 });
 
 paperLeftAnim.addEventListener('complete', () => {
     pick.classList.remove('pointer');
 });
-/////////////////////////////////////////////////////
-scissorsSelection.addEventListener('click', () => {
+
+// Event Listener for scissors
+playerSelection[2].addEventListener('click', () => {
     scissorsClicked = true;
     scissorsLeft.classList.remove('hide');
     rockLeft.classList.add('hide');
     paperLeft.classList.add('hide');
     pick.classList.add('pointer');
     scissorsLeftAnim.playSegments([0, 90], true);
-    playRound();
-    rightAnim();
+    const computerChoice = getComputerChoice();
+    console.log(computerChoice);
+    playRound(computerChoice);
+    rightAnim(computerChoice); // Pass the same computerChoice here
 });
 
 scissorsLeftAnim.addEventListener('complete', () => {
     pick.classList.remove('pointer');
 });
 
+//
+
+let computerChoice;
+
+// Function which randomly returns Rock, Paper or Scissors
+function getComputerChoice() {
+    const randomIndex = Math.floor(Math.random() * choice.length);
+    return choice[randomIndex].id; // Use the id of the elements as computerChoice
+}
+
+
 // Function which plays an animation on the right hand depending on the specific choice, which is random
-function rightAnim() {
-    if (computerSelection === getComputerChoice(choice[0])) {
+function rightAnim(computerChoice) {
+    if (computerChoice === 'rock-right') {
         rockRightAnim.playSegments([0, 90], true);
-        rockRight.classList.remove('hide');
-        paperRight.classList.add('hide');
-        scissorsRight.classList.add('hide');
-
-    } else if (computerSelection === getComputerChoice(choice[1])) {
+        choice[0].classList.remove('hide');
+        choice[1].classList.add('hide');
+        choice[2].classList.add('hide');
+    } else if (computerChoice === 'paper-right') {
         paperRightAnim.playSegments([0, 90], true);
-        paperRight.classList.remove('hide');
-        rockRight.classList.add('hide');
-        scissorsRight.classList.add('hide');
-
+        choice[1].classList.remove('hide');
+        choice[0].classList.add('hide');
+        choice[2].classList.add('hide');
     } else {
         scissorsRightAnim.playSegments([0, 90], true);
-        scissorsRight.classList.remove('hide');
-        rockRight.classList.add('hide');
-        paperRight.classList.add('hide');
-
+        choice[2].classList.remove('hide');
+        choice[0].classList.add('hide');
+        choice[1].classList.add('hide');
     }
 }
 
-// Score
-let playerScore = 0;
-let computerScore = 0;
+//
 
-let result = ["win", "lose", "tie"];
+let result = ['win', 'lose', 'tie'];
 
 // Function which plays a round and returns win, lose or tie based on specific combinations
-function playRound() {
+function playRound(computerChoice) {
+    computerChoice = getComputerChoice().id; // Get the ID of the computer's choice element
 
-    if ((rockClicked === true) && (computerSelection === getComputerChoice(choice[2]))) {
-        result = "win";
+    if (rockClicked) {
+        if (computerChoice === 'rock-right') { // Compare with the ID
+            result = 'tie';
+        } else if (computerChoice === 'paper-right') {
+            result = 'lose';
+        } else {
+            result = 'win';
+        }
+    } else if (paperClicked) {
+        if (computerChoice === 'rock-right') {
+            result = 'win';
+        } else if (computerChoice === 'paper-right') {
+            result = 'tie';
+        } else {
+            result = 'lose';
+        }
+    } else if (scissorsClicked) {
+        if (computerChoice === 'rock-right') {
+            result = 'lose';
+        } else if (computerChoice === 'paper-right') {
+            result = 'win';
+        } else {
+            result = 'tie';
+        }
+    }
 
-    } else if ((scissorsClicked === true) && (computerSelection === getComputerChoice(choice[1]))) {
-        result = "win";
+        if (result === 'win') {
+            playerScore[0].classList.add('hide');
+            playerScore[1].classList.remove('hide');
+            scoreTrack = 1;
+            
+        } else if ((result === 'win') && (scoreTrack === 1)) {
+            playerScore[1].classList.add('hide');
+            playerScore[2].classList.remove('hide');
+            scoreTrack = 2;
+        } else {
 
-    } else if ((paperClicked === true) && (computerSelection === getComputerChoice(choice[0]))) {
-        result = "win";
+        }
+    
+}
 
-    } else if ((scissorsClicked === true) && (computerSelection === getComputerChoice(choice[0]))) {
-        result = "lose";
- 
-    } else if ((paperClicked === true) && (computerSelection === getComputerChoice(choice[2]))) {
-        result = "lose";
- 
-    } else if ((rockClicked === true) && (computerSelection === getComputerChoice(choice[1]))) {
-        result = "lose";
-  
-    } else {
-        result = "tie"; // The only combinations left are draws
+// Score
+let playerScore = [0, 1, 2, 3, 4, 5];
+playerScore[0] = document.querySelector('.score.left .zero');
+playerScore[1] = document.querySelector('.score.left .one');
+playerScore[2] = document.querySelector('.score.left .two');
+playerScore[3] = document.querySelector('.score.left .three');
+playerScore[4] = document.querySelector('.score.left .four');
+playerScore[5] = document.querySelector('.score.left .five');
+
+let computerScore = [0, 1, 2, 3, 4, 5];
+computerScore[0] = document.querySelector('.score.right .zero');
+computerScore[1] = document.querySelector('.score.right .one');
+computerScore[2] = document.querySelector('.score.right .two');
+computerScore[3] = document.querySelector('.score.right .three');
+computerScore[4] = document.querySelector('.score.right .four');
+computerScore[5] = document.querySelector('.score.right .five');
+
+let scoreTrack = 0;
+
+/*
+// Game loop
+function game() {
+    while (playerScore < 5 && computerScore < 5) { // Loops until who reaches first a score of 5 between the player and the computer
         
     }
 }
 
-// Game loop
-function game() {
-    while (playerScore < 3 && computerScore < 3) { // Loops until who reaches first a score of 3 between the user and the computer
-        function trackScore() { // Tracks the score of the user and the computer for each round
-            if (result === "win") {
-                playerScore++
-                return `Your score is: ${playerScore}` + " | " + `Computer's score is: ${computerScore}`;
-            } else if (result === "lose") {
-                computerScore++
-                return `Your score is: ${playerScore}` + " | " + `Computer's score is: ${computerScore}`;
-            } else {
-                return `Your score is: ${playerScore}` + " | " + `Computer's score is: ${computerScore}`;
-            }
-        }
-
-
-        console.log("You chose: " + playerSelection);
-        console.log("The computer has chosen: " + computerSelection);
-
-        console.log(playRound(playerSelection, computerSelection)); // Logs the result of each round
-        console.log(trackScore()); // Logs the score of each round
-    }
-}
-
 function showFinalResult() {
-    if (playerScore === 3 && playerScore > computerScore) {
-        return "You Won! Congrats";
+    if (playerScore === 5 && playerScore > computerScore) {
+        return 'You Won! Congrats';
     } else {
-        return "You Lost! Refresh the page to try again";
+        return 'You Lost! Refresh the page to try again';
     }
 }
-
-// game(); // Plays the loop
+*/
