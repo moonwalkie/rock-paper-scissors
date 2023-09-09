@@ -71,19 +71,13 @@ body {
 
 .rock-text,
 .paper-text,
-.scissors-text:hover {
+.scissors-text {
     cursor: pointer;
     transition: all ease 0.1s;
 }
 
-.rock-text:hover {
-    transform: scale(1.1);
-}
-
-.paper-text:hover {
-    transform: scale(1.1);
-}
-
+.rock-text:hover,
+.paper-text:hover,
 .scissors-text:hover {
     transform: scale(1.1);
 }
