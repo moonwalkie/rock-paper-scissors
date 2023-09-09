@@ -62,6 +62,25 @@ body {
     margin: 0 3rem 0;
 }
 
+.winner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: calc(50% + 8rem);
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 9999;
+    opacity: 0;
+    animation: bounce 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.you-win,
+.comp-wins {
+    position: relative; /* Adjust the position of the messages relative to the winner container */
+}
+
 .pick {
     display: flex;
     justify-content: center;
@@ -84,4 +103,27 @@ body {
 
 .hide {
     display: none;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8); /* Start slightly smaller and less opacity */
+        opacity: 0;
+    }
+    30% {
+        transform: translate(-50%, -50%) scale(1.2); /* Bounce to a larger size */
+        opacity: 1;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(0.9); /* Slightly shrink before settling */
+        opacity: 1;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.1); /* Bounce back a bit */
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1); /* End at the original size */
+        opacity: 1;
+    }
 }

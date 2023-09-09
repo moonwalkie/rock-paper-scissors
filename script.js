@@ -194,9 +194,9 @@ function playRound(computerChoice) {
     if (currentPlayerScore === 5 || currentComputerScore === 5) {
         // Implement end of game logic here, e.g., show the winner
         if (currentPlayerScore === 5) {
-            console.log('Player wins!');
+            displayWinner('player');
         } else {
-            console.log('Computer wins!');
+            displayWinner('computer');
         }
         // You may want to reset the scores and the game at this point
     }
@@ -244,4 +244,26 @@ function updateScore(result) {
 
     // Update the score display
     updateScoreDisplay();
+}
+
+// Function to display the winner message with a delay and transition
+function displayWinner(winner) {
+    const winnerMessage = document.querySelector('.winner');
+    const youWinMessage = document.querySelector('.you-win');
+    const compWinsMessage = document.querySelector('.comp-wins');
+
+    if (winner === 'player') {
+        youWinMessage.classList.remove('hide');
+        compWinsMessage.classList.add('hide');
+    } else if (winner === 'computer') {
+        compWinsMessage.classList.remove('hide');
+        youWinMessage.classList.add('hide');
+    }
+
+    // Delay the appearance of the winner message for 1 second (1000 milliseconds)
+    setTimeout(() => {
+        // Remove the 'hide' class to display the message
+        winnerMessage.classList.remove('hide');
+        // The animation will start 1 second after this point
+    }, 1000);
 }
