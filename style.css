@@ -3,6 +3,10 @@
     src: url('./assets/MINNIE.TTF');
 }
 
+* {
+    box-sizing: content-box;
+}
+
 body {
     height: 100vh;
     margin: 0;
@@ -101,8 +105,39 @@ body {
     transform: scale(1.1);
 }
 
+.play-again {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    position: absolute;
+    top: calc(50% + 8rem);
+    bottom: 6rem;
+    left: 50%;
+    right: 50%;
+    cursor: pointer;
+    opacity: 0; /* Set initial opacity to 0 */
+}
+
+.play-again:hover {
+    transform: scale(1.1);
+    transition: all ease 0.1s;
+}
+
+/* Hide class to show and hide corresponding elements */
 .hide {
     display: none;
+}
+
+/* Fading in and out transition */
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 @keyframes bounce {

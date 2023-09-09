@@ -246,11 +246,12 @@ function updateScore(result) {
     updateScoreDisplay();
 }
 
-// Function to display the winner message with a delay and transition
+/// Function to display the winner message with a delay and transition
 function displayWinner(winner) {
     const winnerMessage = document.querySelector('.winner');
     const youWinMessage = document.querySelector('.you-win');
     const compWinsMessage = document.querySelector('.comp-wins');
+    const playAgainButton = document.querySelector('.play-again');
 
     if (winner === 'player') {
         youWinMessage.classList.remove('hide');
@@ -260,10 +261,52 @@ function displayWinner(winner) {
         youWinMessage.classList.add('hide');
     }
 
-    // Delay the appearance of the winner message for 1 second (1000 milliseconds)
     setTimeout(() => {
-        // Remove the 'hide' class to display the message
-        winnerMessage.classList.remove('hide');
-        // The animation will start 1 second after this point
-    }, 1000);
+        winnerMessage.classList.remove('hide'); // Remove the 'hide' class to display the message
+        winnerMessage.classList.add('fade-in'); // Apply the fade-in class for transition
+
+        // Hide the pick section by adding 'hide' class and fading it out
+        const pickSection = document.querySelector('.pick');
+        pickSection.classList.add('fade-out');
+        setTimeout(() => {
+            pickSection.classList.add('hide'); // Hide the pick section after fade-out
+        }, 500); // Delay the hiding of pick section to match the fade duration
+
+        // Show the "Play Again" button by removing 'hide' class and fading it in
+        playAgainButton.classList.remove('hide');
+        setTimeout(() => {
+            playAgainButton.classList.add('fade-in'); // Apply the fade-in class for transition
+        }, 1000); // Delay the fading in of "Play Again" button after 1 second
+    }, 1000); // Delay the appearance of the winner message for 1 second (1000 milliseconds)
 }
+
+// Add an event listener to the "Play Again" button to reset the game
+const playAgainButton = document.querySelector('.play-again');
+playAgainButton.addEventListener('click', () => {
+    resetGame(); // Implement the resetGame function to reset the game
+});
+
+function resetGame() {
+    const winnerMessage = document.querySelector('.winner');
+    const pickSection = document.querySelector('.pick');
+    const playAgainButton = document.querySelector('.play-again');
+
+    // Hide the winner message and remove the fade-in class
+    winnerMessage.classList.add('hide');
+    winnerMessage.classList.remove('fade-in');
+
+    // Reset the scores
+    currentPlayerScore = 0;
+    currentComputerScore = 0;
+    updateScoreDisplay();
+
+    // Show the pick section and remove the hide and fade-out classes
+    pickSection.classList.remove('hide', 'fade-out');
+
+    // Hide the "Play Again" button and remove the fade-in class
+    playAgainButton.classList.add('hide');
+    playAgainButton.classList.remove('fade-in');
+}
+
+// Call resetGame to initialize the game state
+resetGame();
