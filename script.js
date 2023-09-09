@@ -75,9 +75,13 @@ let rockClicked = false;
 let paperClicked = false;
 let scissorsClicked = false;
 
+// Flag to track if animations are playing
+let animationsPlaying = false;
+
 // Event Listener for rock
 playerSelection[0].addEventListener('click', () => {
-    if (rockClicked) return; // Prevent multiple clicks
+    if (animationsPlaying) return;
+    animationsPlaying = true;
     rockClicked = true;
     rockLeft.classList.remove('hide');
     paperLeft.classList.add('hide');
@@ -89,12 +93,14 @@ playerSelection[0].addEventListener('click', () => {
 });
 
 rockLeftAnim.addEventListener('complete', () => {
+    animationsPlaying = false;
     rockClicked = false; // Reset the flag
 });
 
 // Event Listener for paper
 playerSelection[1].addEventListener('click', () => {
-    if (paperClicked) return; // Prevent multiple clicks
+    if (animationsPlaying) return;
+    animationsPlaying = true;
     paperClicked = true;
     paperLeft.classList.remove('hide');
     rockLeft.classList.add('hide');
@@ -106,12 +112,14 @@ playerSelection[1].addEventListener('click', () => {
 });
 
 paperLeftAnim.addEventListener('complete', () => {
+    animationsPlaying = false;
     paperClicked = false; // Reset the flag
 });
 
 // Event Listener for scissors
 playerSelection[2].addEventListener('click', () => {
-    if (scissorsClicked) return; // Prevent multiple clicks
+    if (animationsPlaying) return;
+    animationsPlaying = true;
     scissorsClicked = true;
     scissorsLeft.classList.remove('hide');
     rockLeft.classList.add('hide');
@@ -123,10 +131,9 @@ playerSelection[2].addEventListener('click', () => {
 });
 
 scissorsLeftAnim.addEventListener('complete', () => {
+    animationsPlaying = false;
     scissorsClicked = false; // Reset the flag
 });
-
-//
 
 let computerChoice;
 
@@ -202,7 +209,6 @@ function playRound(computerChoice) {
     }
 }
 
-
 // Function to initialize the score display
 function initializeScoreDisplay() {
     // Hide all player and computer score images
@@ -246,7 +252,7 @@ function updateScore(result) {
     updateScoreDisplay();
 }
 
-/// Function to display the winner message with a delay and transition
+// Function to display the winner message with a delay and transition
 function displayWinner(winner) {
     const winnerMessage = document.querySelector('.winner');
     const youWinMessage = document.querySelector('.you-win');
