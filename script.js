@@ -4,23 +4,21 @@
 // The game plays until whoever reaches a score of 5 first, which then is declared the winner
 
 // Player Selection
-let pick = document.querySelector('.pick');
-
 let playerSelection = ['rockSelection', 'paperSelection', 'scissorsSelection'];
 playerSelection[0] = document.querySelector('.rock-text');
 playerSelection[1] = document.querySelector('.paper-text');
 playerSelection[2] = document.querySelector('.scissors-text');
 
-// Computer Selection
+// Animation selection left
+let rockLeft = document.getElementById('rock-left');
+let paperLeft = document.getElementById('paper-left');
+let scissorsLeft = document.getElementById('scissors-left');
+
+// Animation selection right
 let choice = ['rockRight', 'paperRight', 'scissorsRight'];
 choice[0] = document.getElementById('rock-right');
 choice[1] = document.getElementById('paper-right');
 choice[2] = document.getElementById('scissors-right');
-
-// Animation
-let rockLeft = document.getElementById('rock-left');
-let paperLeft = document.getElementById('paper-left');
-let scissorsLeft = document.getElementById('scissors-left');
 
 // Left hand
 let rockLeftAnim = bodymovin.loadAnimation({
@@ -72,7 +70,7 @@ let scissorsRightAnim = bodymovin.loadAnimation({
     autoplay: false,
 });
 
-// Declaring variables that change value in Event Listeners so that it can be called in function playRound()
+// Flags
 let rockClicked = false;
 let paperClicked = false;
 let scissorsClicked = false;
@@ -84,16 +82,13 @@ playerSelection[0].addEventListener('click', () => {
     rockLeft.classList.remove('hide');
     paperLeft.classList.add('hide');
     scissorsLeft.classList.add('hide');
-    pick.classList.add('pointer'); // Removes pointer events while animation is playing
     rockLeftAnim.playSegments([0, 90], true);
     const computerChoice = getComputerChoice();
-    console.log(computerChoice);
     playRound(computerChoice);
-    rightAnim(computerChoice); // Pass the same computerChoice here
+    rightAnim(computerChoice);
 });
 
 rockLeftAnim.addEventListener('complete', () => {
-    pick.classList.remove('pointer'); // Add back pointer events after animation is complete
     rockClicked = false; // Reset the flag
 });
 
@@ -104,16 +99,13 @@ playerSelection[1].addEventListener('click', () => {
     paperLeft.classList.remove('hide');
     rockLeft.classList.add('hide');
     scissorsLeft.classList.add('hide');
-    pick.classList.add('pointer');
     paperLeftAnim.playSegments([0, 90], true);
     const computerChoice = getComputerChoice();
-    console.log(computerChoice);
     playRound(computerChoice);
-    rightAnim(computerChoice); // Pass the same computerChoice here
+    rightAnim(computerChoice);
 });
 
 paperLeftAnim.addEventListener('complete', () => {
-    pick.classList.remove('pointer');
     paperClicked = false; // Reset the flag
 });
 
@@ -124,16 +116,13 @@ playerSelection[2].addEventListener('click', () => {
     scissorsLeft.classList.remove('hide');
     rockLeft.classList.add('hide');
     paperLeft.classList.add('hide');
-    pick.classList.add('pointer');
     scissorsLeftAnim.playSegments([0, 90], true);
     const computerChoice = getComputerChoice();
-    console.log(computerChoice);
     playRound(computerChoice);
-    rightAnim(computerChoice); // Pass the same computerChoice here
+    rightAnim(computerChoice);
 });
 
 scissorsLeftAnim.addEventListener('complete', () => {
-    pick.classList.remove('pointer');
     scissorsClicked = false; // Reset the flag
 });
 
@@ -198,8 +187,8 @@ function playRound(computerChoice) {
         currentComputerScore++;
     }
 
-    // Update the score display
-    updateScoreDisplay();
+    // Update the score display with a delay of 1000 milliseconds (1 second)
+    setTimeout(updateScoreDisplay, 1000);
 
     // Check if either player or computer has reached a score of 5
     if (currentPlayerScore === 5 || currentComputerScore === 5) {
