@@ -316,3 +316,38 @@ function resetGame() {
 
 // Call resetGame to initialize the game state
 resetGame();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const theme = document.querySelector('.theme');
+    const body = document.body;
+    let isAlternateTheme = false;
+
+    theme.addEventListener('click', () => {
+        if (isAlternateTheme) {
+            // Toggle back to the default theme
+            body.classList.remove('alt-theme');
+            toggleTheme('warm');
+        } else {
+            // Toggle to the alternate theme
+            body.classList.add('alt-theme');
+            toggleTheme('cold');
+        }
+
+        // Update the theme state
+        isAlternateTheme = !isAlternateTheme;
+    });
+
+    function toggleTheme(theme) {
+        const themeWarm = document.querySelector('.theme-warm');
+        const themeCold = document.querySelector('.theme-cold');
+
+        if (theme === 'warm') {
+            themeCold.classList.add('hide');
+            themeWarm.classList.remove('hide');
+        } else {
+            themeWarm.classList.add('hide');
+            themeCold.classList.remove('hide');
+        }
+    }
+});
