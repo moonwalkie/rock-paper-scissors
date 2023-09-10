@@ -49,11 +49,11 @@ body.alt-theme {
     align-items: center;
 }
 
-#you {
+.you {
     margin-left: 1rem;
 }
 
-#comp {
+.comp {
     margin-right: 1rem;
 }
 
@@ -69,7 +69,7 @@ body.alt-theme {
     margin-right: 5rem;
 }
 
-#versus {
+.versus {
     margin: 0 3rem 0;
 }
 
@@ -97,18 +97,19 @@ body.alt-theme {
     justify-content: center;
     gap: 5rem;
     margin-top: 5rem;
+    z-index: 1;
 }
 
 .rock-text,
 .paper-text,
 .scissors-text {
-    cursor: pointer;
-    transition: all ease 0.1s;
+    transition: all ease 0.18s;
 }
 
 .rock-text:hover,
 .paper-text:hover,
 .scissors-text:hover {
+    cursor: pointer;
     transform: scale(1.1);
 }
 
@@ -128,7 +129,7 @@ body.alt-theme {
 
 .play-again:hover {
     transform: scale(1.07);
-    transition: all ease 0.1s;
+    transition: all ease 0.15s;
 }
 
 /* Hide class to show and hide corresponding elements */
@@ -170,6 +171,190 @@ body.alt-theme {
     }
 }
 
+@keyframes fallAndBounce {
+    0% {
+        transform: translateY(-200%); /* Start above the screen */
+    }
+    25% {
+        transform: translateY(0); /* Fall to the ground */
+    }
+    50% {
+        transform: translateY(-20px); /* First bounce */
+    }
+    60% {
+        transform: translateY(0); /* Rebound from the ground */
+    }
+    80% {
+        transform: translateY(-5px); /* Second bounce */
+    }
+    100% {
+        transform: translateY(0); /* Final position on the ground */
+    }
+}
+
+/* Keyframes for fading in from left */
+@keyframes fade-in-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-80%);
+    }
+    10% {
+        opacity: 0;
+        transform: translateX(-80%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Keyframes for fading in from right */
+@keyframes fade-in-right {
+    0% {
+        opacity: 0;
+        transform: translateX(80%);
+    }
+    10% {
+        opacity: 0;
+        transform: translateX(80%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Keyframes for fading in from top */
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    10% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Keyframes for fading in from bottom */
+@keyframes fade-in-down {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    10% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Keyframes for general fade-in effect */
+@keyframes fade-in-general {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Keyframes for top black bar */
+@keyframes move-in-top {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Keyframes for bottom black bar */
+@keyframes move-in-bottom {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 3s duration animation */
+.score.left,
+.score.right,
+.you,
+.comp,
+.versus,
+.pick {
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+}
+
+/* 2s duration animation */
+.content .container,
+.theme,
+.hand.left,
+.hand.right,
+.copyright {
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+}
+
+/* Logo falling animation */
+.logo {
+    animation: fallAndBounce 1s cubic-bezier(0.25, 0.1, 0.25, 1) 4s both;
+}
+
+/* Animation for elements fading in from the top */
+.theme {
+    animation-name: fade-in-up;
+}
+
+/* Animation for elements fading in from the bottom */
+.pick,
+.copyright {
+    animation-name: fade-in-down;
+}
+
+/* Animation for elements fading in from left */
+.hand.left,
+.score.left {
+    animation-name: fade-in-left;
+}
+
+/* Animation for elements fading in from right */
+.hand.right,
+.score.right {
+    animation-name: fade-in-right;
+}
+
+/* Animation for elements fading in without a specific direction */
+.versus,
+.you,
+.comp {
+    animation-name: fade-in-general;
+}
+
+/* Animation for top black bar */
+.black-bar.top {
+    animation: move-in-top 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) 2.5s both;
+}
+
+/* Animation for bottom black bar */
+.black-bar.bottom {
+    animation: move-in-bottom 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) 2.5s both;
+}
+
 /* Copyright section */
 .copyright {
     position: absolute;
@@ -182,7 +367,7 @@ body.alt-theme {
 .copyright a {
     text-decoration: none;
     color: #000000;
-    transition: all ease 0.2s;
+    transition: all ease 0.3s;
 }
 
 .copyright a:hover {
@@ -198,7 +383,8 @@ body.alt-theme {
 .theme {
     margin: 1rem 0 0 1rem;
     position: absolute;
-    transition: all ease 0.1s;
+    transition: all ease 0.12s;
+    z-index: 1;
 }
 
 .theme:hover {

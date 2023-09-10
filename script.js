@@ -3,6 +3,8 @@
 // Game rules: rock beats scissors, scissors beat paper, and paper beats rock.
 // The game plays until whoever reaches a score of 5 first, which then is declared the winner
 
+const pickSection = document.querySelector('.pick');
+
 // Player Selection
 let playerSelection = ['rockSelection', 'paperSelection', 'scissorsSelection'];
 playerSelection[0] = document.querySelector('.rock-text');
@@ -271,12 +273,11 @@ function displayWinner(winner) {
         winnerMessage.classList.remove('hide'); // Remove the 'hide' class to display the message
         winnerMessage.classList.add('fade-in'); // Apply the fade-in class for transition
 
-        // Hide the pick section by adding 'hide' class and fading it out
-        const pickSection = document.querySelector('.pick');
+        // Add the 'fade-out' class to the pick section to fade it out
         pickSection.classList.add('fade-out');
-        setTimeout(() => {
-            pickSection.classList.add('hide'); // Hide the pick section after fade-out
-        }, 500); // Delay the hiding of pick section to match the fade duration
+
+        // Remove the 'fade-in-down' class from the pick section
+        pickSection.classList.remove('fade-in-down');
 
         // Show the "Play Again" button by removing 'hide' class and fading it in
         playAgainButton.classList.remove('hide');
@@ -317,8 +318,8 @@ function resetGame() {
 // Call resetGame to initialize the game state
 resetGame();
 
-
 document.addEventListener('DOMContentLoaded', () => {
+    // Theme toggle functionality
     const theme = document.querySelector('.theme');
     const body = document.body;
     let isAlternateTheme = false;
