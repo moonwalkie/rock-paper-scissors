@@ -8,12 +8,10 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     font-family: 'Minnie Regular';
-    display: flex;
-    flex-direction: column;
     background: radial-gradient(40% 40rem,#aa7816, #553411);
     background-repeat: no-repeat;
 }
@@ -24,7 +22,12 @@ body {
 }
 
 .black-bar.bottom {
-    margin-top: auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3rem;
+    background-color: black;
 }
 
 .logo,
@@ -161,4 +164,28 @@ body {
         transform: translate(-50%, -50%) scale(1); /* End at the original size */
         opacity: 1;
     }
+}
+
+/* Copyright section */
+.copyright {
+    position: absolute;
+    bottom: 3rem;
+    right: 1rem;
+    color: #000000;
+    font-size: 0.8rem;
+}
+
+.copyright a {
+    text-decoration: none;
+    color: #000000;
+    transition: all ease 0.2s;
+}
+
+.copyright a:hover {
+    color: #ffffff;
+}
+
+.copyright span {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
 }
